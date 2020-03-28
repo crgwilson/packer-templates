@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0",
+
+  "iso_url": "http://mirror.umd.edu/centos/8.1.1911/isos/x86_64/CentOS-8.1.1911-x86_64-dvd1.iso",
+  "iso_checksum": "3ee3f4ea1538e026fff763e2b284a6f20b259d91d1ad5688f5783a67d279423b",
+  "iso_checksum_type": "sha256",
+
+  "ssh_user": "packer",
+  "ssh_password": "packer",
+  "ssh_timeout": "20m",
+
+  "vm_name": "centos8",
+  "vm_domain": "localdomain",
+
+  "vm_cpus": "1",
+  "vm_memory": "1024",
+  "disk_size": "10000",
+
+  "headless": "true",
+  "keep_registered": "false",
+
+  "qemu_net_device": "virtio-net",
+  "qemu_disk_interface": "ide"
+}
