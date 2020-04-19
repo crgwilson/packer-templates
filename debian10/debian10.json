@@ -46,6 +46,61 @@
         "grub-installer/bootdev=/dev/sda <wait>",
         "<enter><wait>"
       ]
+    },
+    {
+      "type": "qemu",
+      "accelerator": "kvm",
+
+      "iso_url": "{{ user `iso_url` }}",
+      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+      "iso_checksum_url": "{{ user `iso_checksum_url` }}",
+
+      "output_directory": "output/qemu",
+      "format": "qcow2",
+
+      "vm_name": "{{ user `vm_name` }}-{{ user `version` }}",
+      "qemuargs": [
+        [ "--enable-kvm" ],
+        [ "-m", "{{ user `vm_memory` }}" ],
+        [ "-smp", "cpus=1,maxcpus=16,cores={{ user `vm_cpus`}}" ],
+        [ "-machine", "type=pc" ],
+        [ "-cpu", "host,kvm=off" ]
+      ],
+
+      "net_device": "{{ user `qemu_net_device` }}",
+      "disk_size": "{{ user `disk_size` }}",
+      "disk_interface": "{{ user `qemu_disk_interface` }}",
+
+      "vnc_port_min": "5950",
+      "vnc_port_max": "5950",
+
+      "ssh_port": "22",
+      "ssh_username": "{{ user `ssh_user` }}",
+      "ssh_password": "{{ user `ssh_password` }}",
+      "ssh_timeout": "{{ user `ssh_timeout` }}",
+      "shutdown_command": "echo '{{ user `ssh_user` }}' |sudo -S shutdown -P now",
+
+      "http_directory": "http",
+      "http_port_min": "8000",
+      "http_port_max": "8000",
+
+      "headless": "{{ user `headless` }}",
+
+      "boot_command": [
+        "<esc><wait>",
+        "install ",
+        "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+        "auto ",
+        "fb=false ",
+        "locale=en_US.UTF-8 ",
+        "keymap=us ",
+        "hostname={{ user `vm_name` }} ",
+        "domain={{ user `vm_domain` }} ",
+        "debconf/frontend=noninteractive ",
+        "console-setup/ask_detect=false ",
+        "grub-installer/bootdev=/dev/sda <wait>",
+        "<enter><wait>"
+      ]
     }
   ],
   "provisioners": [
