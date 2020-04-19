@@ -1,0 +1,67 @@
+{
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+
+      "iso_url": "{{ user `iso_url` }}",
+      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+      "iso_checksum_url": "{{ user `iso_checksum_url` }}",
+
+      "output_directory": "output/virtualbox",
+      "format": "ova",
+
+      "vm_name": "{{ user `vm_name` }}",
+
+      "cpus": "{{ user `vm_cpus` }}",
+      "memory": "{{ user `vm_memory` }}",
+      "disk_size": "{{ user `disk_size` }}",
+
+      "guest_os_type": "Debian_64",
+
+      "ssh_port": "22",
+      "ssh_username": "{{ user `ssh_user` }}",
+      "ssh_password": "{{ user `ssh_password` }}",
+      "ssh_wait_timeout": "10m",
+      "shutdown_command": "echo '{{ user `ssh_user` }}' | sudo -S shutdown -P now",
+
+      "http_directory": "http",
+      "http_port_min": 8000,
+      "http_port_max": 8000,
+
+      "headless": "{{ user `headless` }}",
+      "keep_registered": "{{ user `keep_registered` }}",
+
+      "boot_command": [
+        "<esc><wait>",
+        "install ",
+        "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+        "auto ",
+        "fb=false ",
+        "locale=en_US.UTF-8 ",
+        "keymap=us ",
+        "hostname={{ user `vm_name` }} ",
+        "domain={{ user `vm_domain` }} ",
+        "debconf/frontend=noninteractive ",
+        "console-setup/ask_detect=false ",
+        "grub-installer/bootdev=/dev/sda <wait>",
+        "<enter><wait>"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "sudo mkdir /home/{{ user `ssh_user` }}/.ssh",
+        "sudo chown {{ user `ssh_user` }} /home/{{ user `ssh_user` }}/.ssh",
+        "sudo systemctl enable serial-getty@ttyS0.service"
+      ]
+    },
+    {
+      "type": "file",
+      "source": "provision/ssh/authorized_keys",
+      "destination": "/home/{{ user `ssh_user` }}/.ssh/authorized_keys"
+    }
+  ],
+  "post-processors": []
+}
