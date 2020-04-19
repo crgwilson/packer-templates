@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0",
+
+  "iso_url": "http://mirror.umd.edu/centos/7.7.1908/isos/x86_64/CentOS-7-x86_64-Minimal-1908.iso",
+  "iso_checksum_url": "http://mirror.umd.edu/centos/7.7.1908/isos/x86_64/sha256sum.txt",
+  "iso_checksum_type": "sha256",
+
+  "ssh_user": "packer",
+  "ssh_password": "packer",
+  "ssh_timeout": "20m",
+
+  "vm_name": "centos7",
+  "vm_domain": "localdomain",
+
+  "vm_cpus": "1",
+  "vm_memory": "1024",
+  "disk_size": "10000",
+
+  "headless": "true",
+  "keep_registered": "false",
+
+  "qemu_net_device": "virtio-net",
+  "qemu_disk_interface": "ide"
+}
