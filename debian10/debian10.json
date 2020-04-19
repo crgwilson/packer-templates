@@ -59,6 +59,7 @@
       "format": "qcow2",
 
       "vm_name": "{{ user `vm_name` }}-{{ user `version` }}",
+      "use_default_display": true,
       "qemuargs": [
         [ "--enable-kvm" ],
         [ "-m", "{{ user `vm_memory` }}" ],
