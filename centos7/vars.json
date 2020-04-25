@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "{{isotime \"2006-01-02\"}}",
 
   "iso_url": "http://mirror.umd.edu/centos/7.7.1908/isos/x86_64/CentOS-7-x86_64-Minimal-1908.iso",
   "iso_checksum_url": "http://mirror.umd.edu/centos/7.7.1908/isos/x86_64/sha256sum.txt",
@@ -20,5 +20,7 @@
   "keep_registered": "false",
 
   "qemu_net_device": "virtio-net",
-  "qemu_disk_interface": "ide"
+  "qemu_disk_interface": "ide",
+
+  "custom_ssh_port": "22"
 }

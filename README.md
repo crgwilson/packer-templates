@@ -27,6 +27,8 @@ Builders included in each template produce any of the following image formats
 The created VM will be bootstrapped with the provided authorized keys file. This can be found in each sub-directory's `provision` folder.
 For easy access to the created machine simply drop your SSH public key in that file.
 
+If you want to configure the SSH port to something non-standard each template has a `custom_ssh_port` variable which can be used.
+
 
 ### Default passwords
 
