@@ -10,7 +10,7 @@
       "output_directory": "output/virtualbox",
       "format": "ova",
 
-      "vm_name": "{{ user `vm_name` }}",
+      "vm_name": "{{ user `vm_name` }}-{{ user `version` }}",
 
       "cpus": "{{ user `vm_cpus` }}",
       "memory": "{{ user `vm_memory` }}",
@@ -21,7 +21,7 @@
       "ssh_port": "22",
       "ssh_username": "{{ user `ssh_user` }}",
       "ssh_password": "{{ user `ssh_password` }}",
-      "ssh_wait_timeout": "10m",
+      "ssh_wait_timeout": "{{ user `ssh_timeout` }}",
       "shutdown_command": "echo '{{ user `ssh_user` }}' | sudo -S shutdown -P now",
 
       "http_directory": "http",
@@ -87,7 +87,8 @@
       "inline": [
         "sudo mkdir /home/{{ user `ssh_user` }}/.ssh",
         "sudo chown {{ user `ssh_user` }} /home/{{ user `ssh_user` }}/.ssh",
-        "sudo systemctl enable serial-getty@ttyS0.service"
+        "sudo systemctl enable serial-getty@ttyS0.service",
+        "sudo sed -i 's/#Port 22/Port {{ user `custom_ssh_port` }}/' /etc/ssh/sshd_config"
       ]
     },
     {
